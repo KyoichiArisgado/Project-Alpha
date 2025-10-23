@@ -1088,10 +1088,14 @@ exportDataBtn.addEventListener('click', () => {
     URL.revokeObjectURL(url);
 });
 
-clearAllBtn.addEventListener('click', () => {
+clearAllBtn.addEventListener('click', async () => {
     if (!confirm('Clear ALL dogs? This cannot be undone.')) return;
-    localStorage.removeItem(STORAGE_KEYS.DOGS);
-    shelter.load();
+    // No direct clear endpoint; delete each dog
+    const current = shelter.getDogs();
+    for (const d of current) {
+        try { await shelter.removeDogById(d.id); } catch {}
+    }
+    await shelter.load();
     renderGrid();
 });
 
