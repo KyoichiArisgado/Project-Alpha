@@ -1,0 +1,10 @@
+# Netlify configuration for PupMatch static site
+[build]
+  publish = "."
+  command = ""
+
+# Redirect all paths to index.html if you later add client-side routing
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200

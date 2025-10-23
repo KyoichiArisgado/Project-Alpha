@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PupMatch • Adopt a Friend</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand">
+                <div class="brand-logo" aria-hidden="true">🐶</div>
+                <h1 class="brand-title">PupMatch</h1>
+            </div>
+            <button id="ownerModeBtn" class="btn btn-outline" type="button" aria-expanded="false">Owner Mode</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-media">
+                <!-- Replace src with your own looped GIF/video later -->
+                <video id="heroVideo" class="hero-video" autoplay muted loop playsinline poster="" aria-label="Happy pups video background">
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+            <div class="hero-overlay container">
+                <h2 class="hero-title">Too many paws, not enough bowls 🥣</h2>
+                <p class="hero-subtitle">I built this little site to help my pups find loving homes. If you want a best friend with lots of love, warmth and cuddles, please consider adopting one today. Contact me anytime below.</p>
+                <a href="#adopt" class="btn btn-primary">Meet the Pups</a>
+            </div>
+        </section>
+
+        <section id="adopt" class="section container">
+            <div class="section-head">
+                <h3>Available for Adoption</h3>
+                <p class="muted">Tap a card to view attributes. Click "Adopt Me" to start.</p>
+            </div>
+
+            <!-- Owner-only toolbar -->
+            <div id="ownerToolbar" class="owner-toolbar" hidden>
+                <h4>Manage Pups</h4>
+                <form id="addDogForm" class="add-dog-form" autocomplete="off">
+                    <div class="form-row">
+                        <label>
+                            <span>Name</span>
+                            <input name="name" type="text" required>
+                        </label>
+                        <label>
+                            <span>Breed</span>
+                            <input name="breed" type="text" required>
+                        </label>
+                        <label>
+                            <span>Birthdate</span>
+                            <input name="birthdate" type="date" required>
+                        </label>
+                        <label class="wide">
+                            <span>Upload Image</span>
+                            <input name="imageFile" type="file" accept="image/*" id="imageFileInput">
+                            <div class="file-upload-info">
+                                <small>Or use URL:</small>
+                                <input name="imageUrl" type="url" placeholder="https://..." id="imageUrlInput">
+                            </div>
+                            <div id="imagePreview" class="image-preview" style="display: none;">
+                                <img id="previewImg" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 8px;">
+                                <div class="preview-actions">
+                                    <button type="button" id="editImageBtn" class="btn btn-sm btn-outline">Edit</button>
+                                    <button type="button" id="removeImageBtn" class="btn btn-sm btn-danger">Remove</button>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="wide">
+                            <span>Upload GIF (on hover)</span>
+                            <input name="gifFile" type="file" accept="image/gif" id="gifFileInput">
+                            <div class="file-upload-info">
+                                <small>Or use URL:</small>
+                                <input name="gifUrl" type="url" placeholder="https://...gif" id="gifUrlInput">
+                            </div>
+                            <div id="gifPreview" class="image-preview" style="display: none;">
+                                <img id="previewGif" alt="GIF Preview" style="max-width: 200px; max-height: 200px; border-radius: 8px;">
+                                <div class="preview-actions">
+                                    <button type="button" id="editGifBtn" class="btn btn-sm btn-outline">Edit</button>
+                                    <button type="button" id="removeGifBtn" class="btn btn-sm btn-danger">Remove</button>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <label class="wide">
+                        <span>Short Description</span>
+                        <textarea name="description" rows="2" maxlength="220" required></textarea>
+                    </label>
+
+                    <fieldset class="ratings">
+                        <legend>Attributes (1-5 bones)</legend>
+                        <div class="ratings-grid">
+                            <label><span>Friendliness</span><input name="friendliness" type="number" min="1" max="5" value="5" required></label>
+                            <label><span>Energy</span><input name="energy" type="number" min="1" max="5" value="4" required></label>
+                            <label><span>Trainability</span><input name="trainability" type="number" min="1" max="5" value="4" required></label>
+                            <label><span>Kid Friendly</span><input name="kidFriendly" type="number" min="1" max="5" value="5" required></label>
+                            <label><span>Size</span><input name="size" type="number" min="1" max="5" value="3" required></label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="parents">
+                        <legend>Parents</legend>
+                        <div class="form-row">
+                            <label>
+                                <span>Mother Name</span>
+                                <input name="motherName" type="text" placeholder="e.g., Bella">
+                            </label>
+                            <label>
+                                <span>Mother Breed</span>
+                                <input name="motherBreed" type="text" placeholder="e.g., Beagle">
+                            </label>
+                            <label class="wide">
+                                <span>Mother Image</span>
+                                <input name="motherImageFile" type="file" accept="image/*" id="motherImageFileInput">
+                                <div class="file-upload-info">
+                                    <small>Or use URL:</small>
+                                    <input name="motherImageUrl" type="url" placeholder="https://..." id="motherImageUrlInput">
+                                </div>
+                                <div id="motherImagePreview" class="image-preview" style="display: none;">
+                                    <img id="motherPreviewImg" alt="Mother Preview" style="max-width: 120px; max-height: 120px; border-radius: 8px;">
+                                    <div class="preview-actions">
+                                        <button type="button" id="removeMotherImageBtn" class="btn btn-sm btn-danger">Remove</button>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="form-row">
+                            <label>
+                                <span>Father Name</span>
+                                <input name="fatherName" type="text" placeholder="e.g., Max">
+                            </label>
+                            <label>
+                                <span>Father Breed</span>
+                                <input name="fatherBreed" type="text" placeholder="e.g., Shepherd">
+                            </label>
+                            <label class="wide">
+                                <span>Father Image</span>
+                                <input name="fatherImageFile" type="file" accept="image/*" id="fatherImageFileInput">
+                                <div class="file-upload-info">
+                                    <small>Or use URL:</small>
+                                    <input name="fatherImageUrl" type="url" placeholder="https://..." id="fatherImageUrlInput">
+                                </div>
+                                <div id="fatherImagePreview" class="image-preview" style="display: none;">
+                                    <img id="fatherPreviewImg" alt="Father Preview" style="max-width: 120px; max-height: 120px; border-radius: 8px;">
+                                    <div class="preview-actions">
+                                        <button type="button" id="removeFatherImageBtn" class="btn btn-sm btn-danger">Remove</button>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <div class="toolbar-actions">
+                        <button class="btn btn-success" type="submit">Add Pup</button>
+                        <button id="exportDataBtn" class="btn btn-outline" type="button">Export Data</button>
+                        <button id="clearAllBtn" class="btn btn-danger" type="button">Clear All (Dogs)</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Dog cards grid -->
+            <div id="dogGrid" class="grid"></div>
+        </section>
+
+        <!-- Dog Detail Modal -->
+        <dialog id="dogDetailDialog" class="modal modal-detail">
+            <article class="modal-card">
+                <header class="modal-header">
+                    <h4 id="dogDetailTitle">Pup Details</h4>
+                    <button type="button" id="closeDogDetailBtn" class="icon-btn" aria-label="Close">✖</button>
+                </header>
+                <div class="modal-body dog-detail-body">
+                    <div class="detail-media-wrap">
+                        <img id="detailImg" alt="" class="detail-media" />
+                    </div>
+                    <div class="detail-info">
+                        <p id="detailSub" class="muted"></p>
+                        <p id="detailDesc"></p>
+                        <div id="detailAttrs" class="attrs"></div>
+                    </div>
+                </div>
+                <footer class="modal-footer">
+                    <button class="btn btn-outline" type="button" id="cancelDogDetailBtn">Close</button>
+                    <button class="btn btn-primary" type="button" id="detailAdoptBtn">Adopt Me</button>
+                </footer>
+            </article>
+        </dialog>
+
+        <!-- Image Preview Modal -->
+        <dialog id="imagePreviewModal" class="modal modal-large">
+            <div class="modal-card">
+                <header class="modal-header">
+                    <h4 id="imagePreviewTitle">Edit Image</h4>
+                    <button type="button" id="closeImagePreviewBtn" class="icon-btn" aria-label="Close">✖</button>
+                </header>
+                <div class="modal-body">
+                    <div class="image-editor-container">
+                        <div class="image-viewer">
+                            <div class="image-container" id="imageContainer">
+                                <img id="editableImage" alt="Editable Image" />
+                            </div>
+                        </div>
+                        <div class="image-controls">
+                            <div class="control-group">
+                                <label>Image Presets</label>
+                                <div class="preset-buttons">
+                                    <button type="button" id="centerBtn" class="btn btn-sm btn-outline">Center</button>
+                                    <button type="button" id="fitBtn" class="btn btn-sm btn-outline">Fit</button>
+                                    <button type="button" id="fillBtn" class="btn btn-sm btn-outline">Fill</button>
+                                    <button type="button" id="originalBtn" class="btn btn-sm btn-outline">Original</button>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label>Quick Adjustments</label>
+                                <div class="quick-buttons">
+                                    <button type="button" id="zoomInBtn" class="btn btn-sm btn-outline">Zoom In</button>
+                                    <button type="button" id="zoomOutBtn" class="btn btn-sm btn-outline">Zoom Out</button>
+                                    <button type="button" id="resetBtn" class="btn btn-sm btn-outline">Reset</button>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label>Preview</label>
+                                <div class="preview-thumbnail" id="previewThumbnail">
+                                    <img id="thumbnailPreview" alt="Thumbnail Preview" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="modal-footer">
+                    <button class="btn btn-outline" type="button" id="cancelImageEditBtn">Cancel</button>
+                    <button class="btn btn-primary" type="button" id="saveImageEditBtn">Save Changes</button>
+                </footer>
+            </div>
+        </dialog>
+
+        <!-- Adoption Modal -->
+        <dialog id="adoptDialog" class="modal">
+            <form id="adoptForm" method="dialog" class="modal-card">
+                <header class="modal-header">
+                    <h4 id="adoptTitle">Adopt</h4>
+                    <button type="button" id="closeDialogBtn" class="icon-btn" aria-label="Close">✖</button>
+                </header>
+                <div class="modal-body">
+                    <p class="muted small">Please fill out your details. Only the site owner will see this.</p>
+                    <div class="form-grid">
+                        <label class="wide">
+                            <span>Full Name</span>
+                            <input name="fullName" type="text" required>
+                        </label>
+                        <label>
+                            <span>Pickup Time</span>
+                            <input name="pickupTime" type="datetime-local" required>
+                        </label>
+                        <label class="wide">
+                            <span>Remarks</span>
+                            <textarea name="remarks" rows="3" placeholder="Anything we should know?" ></textarea>
+                        </label>
+                    </div>
+                </div>
+                <footer class="modal-footer">
+                    <button class="btn btn-outline" type="button" id="cancelDialogBtn">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Done</button>
+                </footer>
+            </form>
+        </dialog>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container contact-inner">
+                <h3>Contact</h3>
+                <p>If you have questions or want to adopt, please reach out.</p>
+                <ul class="contact-list">
+                    <li><strong>Phone:</strong> <a href="tel:09153901357">+09153901357</a> | <a href="tel:09171130017">+09171130017</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:kyoichiarisgado@gmail.com">kyoichiarisgado@gmail.com</a></li>
+                    <li><strong>Messenger:</strong> <a href="https://m.me/kiyoh.ado">Kiyoh Ado</a></li>
+                    <li><strong>Facebook:</strong> <a href="https://fb.com/kiyoh.ado">Kiyoh Ado</a></li>
+                    <li><strong>Location:</strong> <a href="https://maps.app.goo.gl/bzsJQpvB3QSKfrtM8">Quezon City, Philippines</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span id="year"></span> PupMatch. Made with love for pups.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
