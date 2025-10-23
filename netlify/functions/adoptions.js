@@ -1,4 +1,4 @@
-import { neon } from '@neondatabase/serverless';
+import { neon } from '@netlify/neon';
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
@@ -15,7 +15,7 @@ export async function handler(event) {
     return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method Not Allowed' }) };
   }
 
-  const sql = neon(process.env.NEON_DATABASE_URL);
+  const sql = neon();
 
   try {
     const body = JSON.parse(event.body || '{}');
